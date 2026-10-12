@@ -1,6 +1,8 @@
 # NOTES
 
-***INTRO***
+### INTRO
 
-## to check psql version
-```psql --version```
+### to check psql version
+```bash
+psql --version 
+```
