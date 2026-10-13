@@ -34,9 +34,7 @@ ALTER ROLE newname WITH PASSWORD 'newpass';
 
 ## 🚀 INTRO
 
----
-
-### 1️⃣ Check PostgreSQL Version
+- ### Check PostgreSQL Version
 
 ```bash
 psql --version 
@@ -44,7 +42,7 @@ psql --version
 
 ---
 
-### 2️⃣ List All Databases
+- ### List All Databases
 
 ```bash
 \l
@@ -52,7 +50,7 @@ psql --version
 
 ---
 
-### 3️⃣ Create Database
+- ### Create Database
 
 ```bash
 CREATE DATABASE [NAME];
@@ -60,7 +58,7 @@ CREATE DATABASE [NAME];
 
 ---
 
-### 4️⃣ Delete Database ⚠️
+- ### Delete Database ⚠️
 
 > [!WARNING]
 > **Be careful!** This command deletes the specified database.
@@ -71,7 +69,7 @@ DROP DATABASE [NAME];
 
 ---
 
-### 5️⃣ Connect to Database
+- ### Connect to Database
 
 #### 🔹 First Way — Using Terminal
 
@@ -87,10 +85,50 @@ psql -h localhost -p 5432 -U [user_name] [database_name]
 
 ---
 
-### 6️⃣ More Commands 📚
+- ### More Commands 📚
 
 ```bash
 psql --help
 ```
 
 ---
+
+- ### Create a Table
+#### EXAMPLE
+
+```psql
+CREATE TABLE person (
+    id INT,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    gender VARCHAR(7),
+    date_of_birth DATE );
+```
+
+---
+
+- ### Get Info About The Table
+```psql
+\d [table_name]
+```
+---
+
+- ### Create Table With Constraints
+
+> [!NOTE]
+>- `BIGSERIAL` automatically generates sequential IDs when a value is not explicitly provided.
+>- `PRIMARY KEY` ensures that each ID is unique and cannot be `NULL`.
+>- `VARCHAR(50)` allows text up to 50 characters long.
+>- `DATE` stores dates in the format `YYYY-MM-DD`.
+>- `NOT NULL` means a value must be provided for that column.
+
+<br>
+
+```psql
+CREATE TABLE person (
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    gender VARCHAR(7) NOT NULL,
+    date_of_birth DATE NOT NULL );
+```
