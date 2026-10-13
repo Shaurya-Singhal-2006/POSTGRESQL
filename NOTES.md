@@ -130,3 +130,11 @@ CREATE TABLE person (
     gender VARCHAR(7) NOT NULL,
     date_of_birth DATE NOT NULL );
 ```
+
+---
+
+- ### Delete a Table
+
+```psql
+DROP TABLE [table_name];
+```
