@@ -135,6 +135,9 @@ CREATE TABLE person (
 
 - ### Delete a Table
 
+> [!WARNING]
+>**Be careful!** This command deletes the specified table.
+
 ```psql
 DROP TABLE [table_name];
 ```
