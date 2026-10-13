@@ -32,8 +32,6 @@ ALTER ROLE newname WITH PASSWORD 'newpass';
 
 # 📝 NOTES
 
-## 🚀 INTRO
-
 - ### Check PostgreSQL Version
 
 ```bash
