@@ -1,89 +1,110 @@
-# 🚨 VERY IMPORTANT !!!
+# PostgreSQL Commands and Notes
 
 > [!IMPORTANT]
-> ### 🔑 TO CHANGE USER NAME
+> **To Change the Username and Password**
 >
-> - Change `'newpass'` to the password you want.
-> - Change `'newname'` to the username you want.
+> * Replace `newname` with the username you want.
+> * Replace `newpass` with the password you want.
+> * Run the commands in the appropriate environment as specified below.
 
-### 🖥️ Run This in psql
+### Create a New User
 
-```psql
+**Run this command in `psql`** to create a new PostgreSQL user with login and superuser privileges.
+
+```sql
 CREATE ROLE newname WITH LOGIN SUPERUSER PASSWORD 'newpass';
 ```
 
-### 💻 Run This in Terminal
+> [!WARNING]
+> A superuser has extensive privileges over the PostgreSQL server. Only grant superuser access to trusted accounts.
+
+### Set Environment Variables
+
+**Run these commands in the Windows terminal** to set the default PostgreSQL username and database.
 
 ```bash
 setx PGUSER newname
-
 setx PGDATABASE postgres
 ```
 
-### 🖥️ Run This in psql
+> [!NOTE]
+> The `setx` command saves environment variables for future terminal sessions. Close and reopen the terminal for the changes to take effect.
 
-```psql
+### Change the User Password
+
+**Run this command in `psql`** to update the password of an existing user.
+
+```sql
 ALTER ROLE newname WITH PASSWORD 'newpass';
 ```
 
 ---
 
-<br>
+# PostgreSQL Basics
 
-# 📝 NOTES
+### Check PostgreSQL Version
 
-- ### Check PostgreSQL Version
+Use this command in the terminal to check the installed PostgreSQL client version.
 
 ```bash
-psql --version 
+psql --version
 ```
 
----
+### List All Databases
 
-- ### List All Databases
+Use this command inside `psql` to display all databases on the PostgreSQL server.
 
-```bash
+```psql
 \l
 ```
 
----
+### Create a Database
 
-- ### Create Database
+Use `CREATE DATABASE` to create a new database. Replace `[database_name]` with your desired database name.
 
-```bash
-CREATE DATABASE [NAME];
+```sql
+CREATE DATABASE database_name;
 ```
 
----
+### Delete a Database
 
-- ### Delete Database ⚠️
+Use `DROP DATABASE` to permanently delete a database.
 
 > [!WARNING]
-> **Be careful!** This command deletes the specified database.
+> This command deletes the specified database and its contents. Make sure you select the correct database before executing it.
 
-```psql
-DROP DATABASE [NAME];
+```sql
+DROP DATABASE database_name;
 ```
 
----
+### Connect to a Database
 
-- ### Connect to Database
+There are two ways to connect to a PostgreSQL database.
 
-#### 🔹 First Way — Using Terminal
+**First Way — Using the Terminal**
+
+Use this command to connect to a database by specifying the host, port, username, and database name.
 
 ```bash
-psql -h localhost -p 5432 -U [user_name] [database_name]
+psql -h localhost -p 5432 -U username database_name
 ```
 
-#### 🔹 Second Way — Using psql
+* `-h localhost`: Specifies the database server.
+* `-p 5432`: Specifies the PostgreSQL port.
+* `-U username`: Specifies the PostgreSQL username.
+* `database_name`: Specifies the database to connect to.
+
+**Second Way — Using `psql`**
+
+If you are already connected to a PostgreSQL server through `psql`, use `\c` to switch databases.
 
 ```psql
-\c [database_name]
+\c database_name
 ```
 
----
+### Get Help
 
-- ### More Commands 📚
+Use this command in the terminal to view the available `psql` command-line options.
 
 ```bash
 psql --help
@@ -91,83 +112,154 @@ psql --help
 
 ---
 
-- ### Create a Table
-#### EXAMPLE
+# Working with Tables
 
-```psql
+### Create a Table
+
+Use `CREATE TABLE` to create a table with the required columns and data types.
+
+**Example: Creating a `person` Table**
+
+```sql
 CREATE TABLE person (
     id INT,
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     gender VARCHAR(7),
-    date_of_birth DATE );
+    date_of_birth DATE
+);
 ```
 
----
+**Column descriptions:**
 
-- ### Get Info About The Table
+* `id INT`: Stores an integer ID.
+* `first_name VARCHAR(50)`: Stores a first name of up to 50 characters.
+* `last_name VARCHAR(50)`: Stores a last name of up to 50 characters.
+* `gender VARCHAR(7)`: Stores text of up to 7 characters.
+* `date_of_birth DATE`: Stores a date.
+
+### Get Information About a Table
+
+Use `\d` to view a table's structure, including its columns, data types, and constraints.
+
+Replace `[table_name]` with the name of your table.
+
 ```psql
-\d [table_name]
+\d table_name
 ```
----
 
-- ### Create Table With Constraints
+### Create a Table with Constraints
 
-> [!NOTE]
->- `BIGSERIAL` automatically generates sequential IDs when a value is not explicitly provided.
->- `PRIMARY KEY` ensures that each ID is unique and cannot be `NULL`.
->- `VARCHAR(50)` allows text up to 50 characters long.
->- `DATE` stores dates in the format `YYYY-MM-DD`.
->- `NOT NULL` means a value must be provided for that column.
+Constraints help maintain data accuracy and integrity.
 
-<br>
+* `BIGSERIAL`: Automatically generates sequential integer IDs when a value is not explicitly provided.
+* `PRIMARY KEY`: Ensures that each row has a unique, non-null identifier.
+* `VARCHAR(50)`: Allows text of up to 50 characters.
+* `DATE`: Stores dates in the format `YYYY-MM-DD`.
+* `NOT NULL`: Prevents a column from containing `NULL` values.
 
-```psql
+**Example:**
+
+```sql
 CREATE TABLE person (
-    id BIGSERIAL NOT NULL PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     gender VARCHAR(7) NOT NULL,
-    date_of_birth DATE NOT NULL );
+    date_of_birth DATE NOT NULL
+);
 ```
-
----
-
-- ### Delete a Table
-
-> [!WARNING]
->**Be careful!** This command deletes the specified table.
-
-```psql
-DROP TABLE [table_name];
-```
-
----
-
-- ### Insert Records Into Table
-#### Example 
-```psql
-INSERT INTO person (
-    first_name,
-    second_name,
-    gender,
-    date_of_birth )
-
-    [click enter]
-
-    VALUES ('Shaurya','Singhal','MALE', date '2006-11-09');
-```
-
----
-
-- ### Insert 1000 Rows with Mockaroo
 
 > [!NOTE]
-> Go to LINK  : ` https://www.mockaroo.com/ ` <br>
-> To generate the data. <br>
-> Download it in SQL format. 
+> `BIGSERIAL` uses an underlying sequence to generate IDs. It does not automatically guarantee uniqueness by itself; the `PRIMARY KEY` constraint enforces uniqueness.
 
-- #### Use
-```psql
-\i [file_location] 
+### Delete a Table
+
+Use `DROP TABLE` to permanently remove a table and its data.
+
+> [!WARNING]
+> This command deletes the specified table. Make sure you do not need its data before executing it.
+
+```sql
+DROP TABLE table_name;
 ```
+
+---
+
+# Inserting Data
+
+### Insert a Record into a Table
+
+Use `INSERT INTO` to add a new record to a table.
+
+Specify the column names first, followed by the values to insert.
+
+**Example:**
+
+```sql
+INSERT INTO person (
+    first_name,
+    last_name,
+    gender,
+    date_of_birth
+)
+VALUES (
+    'Shaurya',
+    'Singhal',
+    'MALE',
+    DATE '2006-11-09'
+);
+```
+
+> [!NOTE]
+> The column name is `last_name`, not `second_name`, because that is how the column was defined in the table.
+
+### Insert 1,000 Rows Using Mockaroo
+
+[Mockaroo](https://www.mockaroo.com/) is an online tool that generates realistic sample data for testing and practice.
+
+**Steps:**
+
+* Open [Mockaroo](https://www.mockaroo.com/).
+* Configure the fields according to your table structure.
+* Generate the required number of records.
+* Download the data in SQL format.
+* Open `psql` and execute the downloaded SQL file using the command below.
+
+**Run this command inside `psql`:**
+
+```psql
+\i 'D:/path/to/your/file.sql'
+```
+
+Replace the example path with the actual location of your downloaded SQL file.
+
+> [!TIP]
+> In PostgreSQL's `psql`, the `\i` command executes SQL commands from a file. On Windows, forward slashes (`/`) can be used in file paths to avoid backslash-related issues.
+
+---
+
+# Retrieving Data
+
+### View All Records from a Table
+
+Use `SELECT *` to retrieve all columns and rows from a table.
+
+```sql
+SELECT * FROM person;
+```
+
+Here, `*` represents all columns in the table.
+
+### Select Specific Columns
+
+If you only need certain columns, specify their names instead of using `*`.
+
+**Example: Retrieve First and Last Names**
+
+```sql
+SELECT first_name, last_name
+FROM person;
+```
+
+This query displays only the `first_name` and `last_name` columns for all records in the `person` table.
