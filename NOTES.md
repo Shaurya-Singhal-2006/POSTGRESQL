@@ -141,3 +141,32 @@ CREATE TABLE person (
 ```psql
 DROP TABLE [table_name];
 ```
+
+---
+
+- ### Insert Records Into Table
+#### Example 
+```psql
+INSERT INTO person (
+    first_name,
+    second_name,
+    gender,
+    date_of_birth )
+
+    [click enter]
+
+    VALUES ('Shaurya','Singhal','MALE', date '2006-11-09');
+```
+
+---
+
+- ### Insert 1000 Rows with Mockaroo
+
+>[!NOTE] Go to LINK  : ` https://www.mockaroo.com/ ` <br>
+> To generate the data <br>
+> Download it in SQL format 
+
+- #### Use
+```psql
+\i [file_location] 
+```
