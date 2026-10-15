@@ -162,8 +162,9 @@ INSERT INTO person (
 
 - ### Insert 1000 Rows with Mockaroo
 
-> [!NOTE] Go to LINK  : ` https://www.mockaroo.com/ ` <br>
-> To generate the data <br>
+> [!NOTE]
+> Go to LINK  : ` https://www.mockaroo.com/ `
+> To generate the data
 > Download it in SQL format 
 
 - #### Use
